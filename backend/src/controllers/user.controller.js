@@ -56,7 +56,7 @@ const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const existingUser = User.findOne({ username });
+    const existingUser = await User.findOne({ username });
 
     if (!existingUser) {
       return res.json({ message: "User don't exist" });
@@ -81,6 +81,7 @@ const loginUser = async (req, res) => {
     });
 
     res.json({ accessToken });
+    console.log(existingUser);
   } catch (error) {
     console.log(error);
   }
@@ -132,7 +133,7 @@ const validate_token = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   registerUser,
   loginUser,
   testRoute,

@@ -9,4 +9,4 @@ app.use(cors());
 dotenv.config();
 app.use(bodyParser.json());
 
-module.exports = app;
+export default app;
