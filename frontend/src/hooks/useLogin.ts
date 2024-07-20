@@ -10,7 +10,11 @@ export default function useLogin() {
     axios
       .post("http://localhost:8001/api/v1/login", data)
       .then((response) => {
-        console.log(response.data);
+        if (response.data.accessToken) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+        } else {
+          console.log(response.data.message);
+        }
       })
       .catch((error) => console.log(error));
   };
