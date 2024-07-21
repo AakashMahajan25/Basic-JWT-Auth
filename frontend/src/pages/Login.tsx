@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import useLogin from "../hooks/useLogin";
+import { useAuthStore } from "../context/store";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { login } = useLogin();
+  const { user } = useAuthStore();
+  console.log(user);
+
+  const { loginHook } = useLogin();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login({
+    loginHook({
       username,
       password,
     });
