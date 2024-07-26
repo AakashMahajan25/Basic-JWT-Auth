@@ -9,13 +9,14 @@ interface loginInterface {
 
 export default function useLogin() {
   const { login } = useAuthStore();
+  const navigate = useNavigate();
   const loginHook = (data: loginInterface) => {
     axios
       .post("http://localhost:8001/api/v1/login", data)
       .then((response) => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
           login(response.data);
+          navigate("/");
         } else {
           console.log(response.data.message);
         }

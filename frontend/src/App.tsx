@@ -10,10 +10,17 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import { useEffect } from "react";
 import { useAuthStore } from "./context/store";
 
 export default function App() {
-  const { user } = useAuthStore();
+  const { user, validateToken } = useAuthStore();
+
+  useEffect(() => {
+    validateToken();
+  }, []);
+
+  console.log(user);
 
   return (
     <Router>
@@ -27,7 +34,10 @@ export default function App() {
           }
         />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to={"/"} />}
+        />
       </Routes>
     </Router>
   );
